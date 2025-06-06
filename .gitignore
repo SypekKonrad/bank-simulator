@@ -1,0 +1,41 @@
+# Java
+*.class
+
+# Build directories
+/out/
+/target/
+/build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs and temp
+*.log
+
+# temp ignore
+readme.md
+readme2.md
