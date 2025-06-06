@@ -4,10 +4,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
 
         // setup jframe
         JFrame frame = new JFrame("bank");
@@ -20,9 +30,10 @@ public class Main {
         // render guzików i innych kompomentów
 
         // to tu musi zostac
-//        frame.add(footerPanel, BorderLayout.SOUTH);
+        //        frame.add(footerPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
-
     }
 
 }
+
+
