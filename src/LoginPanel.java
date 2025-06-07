@@ -41,5 +41,19 @@ public class LoginPanel extends JPanel {
         gbc.gridy = 3;
         add(createAccountButton, gbc);
 
+        UserAuth userAuth = new UserAuth();
+
+        submitButton.addActionListener(e -> {
+            String login = loginField.getText();
+            String password = new String(passwordField.getPassword());
+
+            if (userAuth.authenticate(login, password)) {
+                JOptionPane.showMessageDialog(frame, "ok");
+            } else {
+                JOptionPane.showMessageDialog(frame, "wrong login/passwd.");
+            }
+        });
+
+
     }
 }
