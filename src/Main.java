@@ -30,7 +30,7 @@ public class Main {
         // render guzików i innych kompomentów
 
         // to tu musi zostac
-        //        frame.add(footerPanel, BorderLayout.SOUTH);
+        frame.add(new LoginPanel(frame));
         frame.setVisible(true);
     }
 
