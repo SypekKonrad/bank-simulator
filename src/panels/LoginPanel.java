@@ -1,3 +1,6 @@
+package panels;
+import auth.UserAuth;
+
 import javax.swing.*;
 import java.awt.*;
 

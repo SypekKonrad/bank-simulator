@@ -1,3 +1,5 @@
+package auth;
+
 public class UserAuth {
 
     public boolean authenticate(String username, String password) {

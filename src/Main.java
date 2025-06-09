@@ -6,6 +6,8 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import javax.swing.SwingUtilities;
 
+import panels.LoginPanel;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -28,6 +30,8 @@ public class Main {
         frame.setUndecorated(false);
 
         // render guzików i innych kompomentów
+
+        //todo jak zrobie user register to user auth musi brac dane z pliku
 
         // to tu musi zostac
         frame.add(new LoginPanel(frame));
