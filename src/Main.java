@@ -6,7 +6,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import javax.swing.SwingUtilities;
 
-import panels.LoginPanel;
+import panels.*;
 
 public class Main {
 
@@ -25,16 +25,23 @@ public class Main {
         JFrame frame = new JFrame("bank");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
         // rozmiar jframe
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(false);
 
-        // render guzików i innych kompomentów
 
         //todo jak zrobie user register to user auth musi brac dane z pliku
 
+        CardLayout cardLayout = new CardLayout();
+        JPanel mainPanel = new JPanel(cardLayout);
+
+        mainPanel.add(new LoginPanel(frame, cardLayout, mainPanel), "login");
+        mainPanel.add(new RegisterPanel(frame, cardLayout, mainPanel), "register");
+
+
         // to tu musi zostac
-        frame.add(new LoginPanel(frame));
+        frame.add(mainPanel);
         frame.setVisible(true);
     }
 

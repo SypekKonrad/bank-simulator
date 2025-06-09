@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class LoginPanel extends JPanel {
 
-    public LoginPanel(JFrame frame) {
+    public LoginPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
