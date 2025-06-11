@@ -1,4 +1,5 @@
 package panels;
+import models.PrivateUser;
 import utils.Validators;
 
 import javax.swing.*;
@@ -120,7 +121,7 @@ public class PrivateRegisterPanel extends JPanel {
         registerButton.addActionListener(e -> {
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
-            String dob = dobField.getText();
+            String dateOfBirth = dobField.getText();
             String pesel = peselField.getText();
             String email = emailField.getText();
             String phone = phoneField.getText();
@@ -129,7 +130,7 @@ public class PrivateRegisterPanel extends JPanel {
             String password = new String(passwordField.getPassword());
             String confirmPassword = new String(confirmPasswordField.getPassword());
 
-            if (!Validators.allFieldsFilled(firstName, lastName, dob, pesel, email, phone, address, login, password, confirmPassword)) {
+            if (!Validators.allFieldsFilled(firstName, lastName, dateOfBirth, pesel, email, phone, address, login, password, confirmPassword)) {
                 JOptionPane.showMessageDialog(frame, "All fields must be filled.", "Validation Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -154,8 +155,15 @@ public class PrivateRegisterPanel extends JPanel {
                 return;
             }
 
+            PrivateUser user = new PrivateUser(
+                    firstName, lastName, dateOfBirth, pesel, email,
+                    phone, address, login, password
+            );
+
             JOptionPane.showMessageDialog(frame, "Account registered!");
             cardLayout.show(mainPanel, "login");
+
+
         });
     }
 }

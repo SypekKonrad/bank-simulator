@@ -38,6 +38,8 @@ public class Main {
 
         mainPanel.add(new LoginPanel(frame, cardLayout, mainPanel), "login");
         mainPanel.add(new RegisterPanel(frame, cardLayout, mainPanel), "register");
+        mainPanel.add(new EnterpriseRegisterPanel(frame, cardLayout, mainPanel), "enterprise register");
+        mainPanel.add(new PrivateRegisterPanel(frame, cardLayout, mainPanel), "private register");
 
 
         // to tu musi zostac

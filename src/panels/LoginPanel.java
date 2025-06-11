@@ -57,6 +57,10 @@ public class LoginPanel extends JPanel {
             }
         });
 
+        createAccountButton.addActionListener(e -> {
+            cardLayout.show(mainPanel, "register");
+        });
+
 
     }
 }
