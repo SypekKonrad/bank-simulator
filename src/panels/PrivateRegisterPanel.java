@@ -1,4 +1,5 @@
 package panels;
+import models.PrivateAccount;
 import models.PrivateUser;
 import utils.Validators;
 
@@ -159,6 +160,8 @@ public class PrivateRegisterPanel extends JPanel {
                     firstName, lastName, dateOfBirth, pesel, email,
                     phone, address, login, password
             );
+
+            PrivateAccount account = new PrivateAccount(user);
 
             JOptionPane.showMessageDialog(frame, "Account registered!");
             cardLayout.show(mainPanel, "login");
