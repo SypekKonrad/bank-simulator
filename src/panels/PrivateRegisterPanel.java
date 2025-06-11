@@ -167,7 +167,7 @@ public class PrivateRegisterPanel extends JPanel {
 
             try {
                 DataManager.saveUserData(user, account, "user_account.dat");
-                JOptionPane.showMessageDialog(frame, "Account registered and data saved!");
+                JOptionPane.showMessageDialog(frame, "data saved");
                 cardLayout.show(mainPanel, "login");
             } catch (DataSaveException ex) {
                 JOptionPane.showMessageDialog(frame, "Failed to save data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
