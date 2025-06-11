@@ -5,6 +5,8 @@ import utils.Validators;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+
 
 public class PrivateRegisterPanel extends JPanel {
     public PrivateRegisterPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel) {
@@ -162,6 +164,15 @@ public class PrivateRegisterPanel extends JPanel {
             );
 
             PrivateAccount account = new PrivateAccount(user);
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("user_account.dat"))) {
+                oos.writeObject(user);
+                oos.writeObject(account);
+                JOptionPane.showMessageDialog(frame, "Data saved to file successfully.");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "Failed to save data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
 
             JOptionPane.showMessageDialog(frame, "Account registered!");
             cardLayout.show(mainPanel, "login");
