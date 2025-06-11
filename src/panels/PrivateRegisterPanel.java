@@ -1,11 +1,11 @@
 package panels;
 import models.PrivateAccount;
 import models.PrivateUser;
-import utils.Validators;
+import utils.*;
+import exceptions.DataSaveException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 
 
 public class PrivateRegisterPanel extends JPanel {
@@ -165,11 +165,11 @@ public class PrivateRegisterPanel extends JPanel {
 
             PrivateAccount account = new PrivateAccount(user);
 
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("user_account.dat"))) {
-                oos.writeObject(user);
-                oos.writeObject(account);
-                JOptionPane.showMessageDialog(frame, "Data saved to file successfully.");
-            } catch (IOException ex) {
+            try {
+                DataManager.saveUserData(user, account, "user_account.dat");
+                JOptionPane.showMessageDialog(frame, "Account registered and data saved!");
+                cardLayout.show(mainPanel, "login");
+            } catch (DataSaveException ex) {
                 JOptionPane.showMessageDialog(frame, "Failed to save data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
