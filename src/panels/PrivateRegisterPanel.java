@@ -1,8 +1,7 @@
 package panels;
-import models.PrivateAccount;
-import models.PrivateUser;
+import models.*;
 import utils.*;
-import exceptions.DataSaveException;
+import exceptions.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -166,10 +165,17 @@ public class PrivateRegisterPanel extends JPanel {
             PrivateAccount account = new PrivateAccount(user);
 
             try {
-                DataManager.saveUserData(user, account, "user_account.dat");
-                JOptionPane.showMessageDialog(frame, "data saved");
+                BankData data = DataManager.loadData();
+
+                data.addUser(user);
+                data.addAccount(account);
+
+                DataManager.saveData(data);
+
+                JOptionPane.showMessageDialog(frame, "Data saved");
                 cardLayout.show(mainPanel, "login");
-            } catch (DataSaveException ex) {
+
+            } catch (DataSaveException | DataLoadException ex) {
                 JOptionPane.showMessageDialog(frame, "Failed to save data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
