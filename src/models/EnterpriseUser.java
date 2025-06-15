@@ -2,7 +2,7 @@ package models;
 import java.io.Serializable;
 
 public class EnterpriseUser extends User implements Serializable{
-    private String CompanyName;
+    private String companyName;
     private String NIP;
 
     public EnterpriseUser(
@@ -15,7 +15,7 @@ public class EnterpriseUser extends User implements Serializable{
             String NIP
     ) {
         super(null, login, password, email, phone, address);
-        this.CompanyName = CompanyName;
+        this.companyName = CompanyName;
         this.NIP = NIP;
     }
 
@@ -25,11 +25,11 @@ public class EnterpriseUser extends User implements Serializable{
     }
 
     public String getCompanyName() {
-        return CompanyName;
+        return companyName;
     }
 
     public void setCompanyName(String CompanyName) {
-        this.CompanyName = CompanyName;
+        this.companyName = CompanyName;
     }
 
     public String getNIP() {
