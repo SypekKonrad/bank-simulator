@@ -5,6 +5,7 @@ import exceptions.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 
 public class PrivateRegisterPanel extends JPanel {
@@ -54,45 +55,10 @@ public class PrivateRegisterPanel extends JPanel {
 
         int row = 0;
 
-        // Add components to panel
+        // add components to panel
         gbc.gridx = 0; gbc.gridy = row++; gbc.gridwidth = 2;
         add(titleLabel, gbc);
         gbc.gridwidth = 1;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(firstNameLabel, gbc);
-        gbc.gridx = 1;
-        add(firstNameField, gbc); row++;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(lastNameLabel, gbc);
-        gbc.gridx = 1;
-        add(lastNameField, gbc); row++;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(dobLabel, gbc);
-        gbc.gridx = 1;
-        add(dobField, gbc); row++;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(peselLabel, gbc);
-        gbc.gridx = 1;
-        add(peselField, gbc); row++;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(emailLabel, gbc);
-        gbc.gridx = 1;
-        add(emailField, gbc); row++;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(phoneLabel, gbc);
-        gbc.gridx = 1;
-        add(phoneField, gbc); row++;
-
-        gbc.gridx = 0; gbc.gridy = row;
-        add(addressLabel, gbc);
-        gbc.gridx = 1;
-        add(addressField, gbc); row++;
 
         gbc.gridx = 0; gbc.gridy = row;
         add(loginLabel, gbc);
@@ -110,6 +76,41 @@ public class PrivateRegisterPanel extends JPanel {
         add(confirmPasswordField, gbc); row++;
 
         gbc.gridx = 0; gbc.gridy = row;
+        add(emailLabel, gbc);
+        gbc.gridx = 1;
+        add(emailField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
+        add(phoneLabel, gbc);
+        gbc.gridx = 1;
+        add(phoneField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
+        add(addressLabel, gbc);
+        gbc.gridx = 1;
+        add(addressField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
+        add(firstNameLabel, gbc);
+        gbc.gridx = 1;
+        add(firstNameField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
+        add(lastNameLabel, gbc);
+        gbc.gridx = 1;
+        add(lastNameField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
+        add(peselLabel, gbc);
+        gbc.gridx = 1;
+        add(peselField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
+        add(dobLabel, gbc);
+        gbc.gridx = 1;
+        add(dobField, gbc); row++;
+
+        gbc.gridx = 0; gbc.gridy = row;
         add(backButton, gbc);
         gbc.gridx = 1;
         add(registerButton, gbc);
@@ -121,16 +122,16 @@ public class PrivateRegisterPanel extends JPanel {
 
         // data storage logic, jakas validacja
         registerButton.addActionListener(e -> {
+            String login = loginField.getText();
+            String password = new String(passwordField.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
+            String email = emailField.getText();
+            String phone = phoneField.getText();
+            String address = addressField.getText();
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String dateOfBirth = dobField.getText();
             String pesel = peselField.getText();
-            String email = emailField.getText();
-            String phone = phoneField.getText();
-            String address = addressField.getText();
-            String login = loginField.getText();
-            String password = new String(passwordField.getPassword());
-            String confirmPassword = new String(confirmPasswordField.getPassword());
 
             if (!Validators.allFieldsFilled(firstName, lastName, dateOfBirth, pesel, email, phone, address, login, password, confirmPassword)) {
                 JOptionPane.showMessageDialog(frame, "All fields must be filled.", "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -158,11 +159,49 @@ public class PrivateRegisterPanel extends JPanel {
             }
 
             PrivateUser user = new PrivateUser(
-                    firstName, lastName, dateOfBirth, pesel, email,
-                    phone, address, login, password
+                    login,
+                    password,
+                    email,
+                    phone,
+                    address,
+                    firstName,
+                    lastName,
+                    pesel,
+                    dateOfBirth
             );
 
             PrivateAccount account = new PrivateAccount(user);
+
+//            try {
+//                BankData data = DataManager.readDataFromText();
+//
+//                for (User existingUser : data.getUsers()) {
+//                    if (existingUser.getLogin().equals(user.getLogin())) {
+//                        JOptionPane.showMessageDialog(frame,
+//                                "Username already exists",
+//                                "Registration Error",
+//                                JOptionPane.ERROR_MESSAGE);
+//                        return;
+//                    }
+//                }
+//
+//                data.addUser(user);
+//                data.addAccount(account);
+//                DataManager.saveDataAsText(data);
+//
+//                JOptionPane.showMessageDialog(frame,
+//                        "Registration successful!",
+//                        "Success",
+//                        JOptionPane.INFORMATION_MESSAGE);
+//                cardLayout.show(mainPanel, "login");
+//
+//            } catch (DataSaveException | DataLoadException | IOException ex) {
+//                JOptionPane.showMessageDialog(frame,
+//                        "Failed to save data: " + ex.getMessage(),
+//                        "File Error",
+//                        JOptionPane.ERROR_MESSAGE);
+//                ex.printStackTrace();
+//            }
 
             try {
                 BankData data = DataManager.loadData();

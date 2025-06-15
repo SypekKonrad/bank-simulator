@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class User {
-    protected String id = UUID.randomUUID().toString();
+public abstract class User implements Serializable {
+    protected String id;
     protected String login;
     protected String password;
     protected String email;
@@ -35,6 +36,10 @@ public abstract class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {

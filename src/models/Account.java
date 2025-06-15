@@ -2,7 +2,9 @@ package models;
 
 import utils.AccountNumberGenerator;
 
-public abstract class Account {
+import java.io.Serializable;
+
+public abstract class Account  implements Serializable {
     protected String accountNumber;
     protected double balance;
     protected User owner;
