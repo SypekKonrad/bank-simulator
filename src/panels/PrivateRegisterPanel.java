@@ -35,7 +35,7 @@ public class PrivateRegisterPanel extends JPanel {
         JLabel emailLabel = new JLabel("Email:");
         JTextField emailField = new JTextField(40);
 
-        JLabel phoneLabel = new JLabel("Phone:");
+        JLabel phoneLabel = new JLabel("Phone Number:");
         JTextField phoneField = new JTextField(15);
 
         JLabel addressLabel = new JLabel("Address:");
