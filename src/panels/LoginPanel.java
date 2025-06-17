@@ -51,17 +51,13 @@ public class LoginPanel extends JPanel {
 
         submitButton.addActionListener(e -> {
             try {
-                // Load data (users, accounts, etc.)
                 BankData data = DataManager.loadData();
-//                boolean authenticated = false;
 
-                // Retrieve login and password from input fields
                 String login = loginField.getText().trim();
                 String password = new String(passwordField.getPassword());
 
 
 
-                // Basic input validation
                 if (login.isEmpty() || password.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Please enter both login and password.", "Input Error", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -74,28 +70,22 @@ public class LoginPanel extends JPanel {
 
 
 
-                // Authenticate user using UserAuth
                 UserAuth userAuth = new UserAuth(data);
-                User loggedInUser = userAuth.authenticate(login, password); // throws InvalidCredentialsException if fails
+                User loggedInUser = userAuth.authenticate(login, password);
 
-                // Show success message
                 JOptionPane.showMessageDialog(frame, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                // Add the AccountPanel with the logged-in user, and switch the card layout to it
-                mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser), "account");
+                mainPanel.add(new AccountPanel(cardLayout, mainPanel, loggedInUser), "account");
                 cardLayout.show(mainPanel, "account");
 
             } catch (InvalidCredentialsException ex) {
-                // Wrong login or password
                 JOptionPane.showMessageDialog(frame, ex.getMessage(), "Login Failed", JOptionPane.ERROR_MESSAGE);
 
             } catch (DataLoadException ex) {
-                // Error loading user data from storage
                 JOptionPane.showMessageDialog(frame, "Error loading user data: " + ex.getMessage(), "Data Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
 
             } catch (Exception ex) {
-                // Catch any other unexpected exceptions
                 JOptionPane.showMessageDialog(frame, "Unexpected error: " + ex.getMessage(), "Unexpected Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }

@@ -19,16 +19,13 @@ public class RegisterPanel extends JPanel {
         JButton privateButton = new JButton("Private Account");
         JButton backButton = new JButton("Cancel");
 
-        // --- Label layout (centered text and centered in layout) ---
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2; // span both columns
+        gbc.gridwidth = 2;
         add(label1, gbc);
 
-        // Reset gridwidth for other components
         gbc.gridwidth = 1;
 
-        // --- Button group panel (centered) ---
         JPanel buttonGroupPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonGroupPanel.add(enterpriseButton);
         buttonGroupPanel.add(privateButton);
@@ -38,13 +35,11 @@ public class RegisterPanel extends JPanel {
         gbc.gridwidth = 2;
         add(buttonGroupPanel, gbc);
 
-        // --- Back button layout ---
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         add(backButton, gbc);
 
-        // --- Action Listeners ---
         backButton.addActionListener(e -> cardLayout.show(mainPanel, "login"));
 
         enterpriseButton.addActionListener(e -> cardLayout.show(mainPanel, "enterprise register"));
