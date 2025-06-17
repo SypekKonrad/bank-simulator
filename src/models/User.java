@@ -22,6 +22,8 @@ public abstract class User implements Serializable {
 
     public abstract String getUserType();
 
+    public abstract String getDisplayName();
+
     public String getId() {
         return id;
     }

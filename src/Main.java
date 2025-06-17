@@ -6,6 +6,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import javax.swing.SwingUtilities;
 
+
 import panels.*;
 
 public class Main {
@@ -40,7 +41,7 @@ public class Main {
         mainPanel.add(new RegisterPanel(frame, cardLayout, mainPanel), "register");
         mainPanel.add(new EnterpriseRegisterPanel(frame, cardLayout, mainPanel), "enterprise register");
         mainPanel.add(new PrivateRegisterPanel(frame, cardLayout, mainPanel), "private register");
-        mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel), "account dashboard");
+//        mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser), "account dashboard");
 
 
         // to tu musi zostac

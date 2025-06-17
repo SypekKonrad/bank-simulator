@@ -2,35 +2,39 @@ package panels;
 
 import javax.swing.*;
 import java.awt.*;
+import models.*;
 
 public class AccountPanel extends JPanel {
-    public AccountPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel) {
-
-        // defining layout
+    public AccountPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel, User user) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // declaring buttons/labels/components etc
-        JLabel label1 = new JLabel("account dashboard");
-        JButton logoutButton = new JButton("logout");
+        // Determine the name to display
+        String displayName;
+        if (user instanceof PrivateUser) {
+            PrivateUser privateUser = (PrivateUser) user;
+            displayName = privateUser.getFirstName() + " " + privateUser.getLastName();
+        } else if (user instanceof EnterpriseUser) {
+            EnterpriseUser enterpriseUser = (EnterpriseUser) user;
+            displayName = enterpriseUser.getCompanyName();
+        } else {
+            displayName = user.getLogin(); // fallback
+        }
 
-        // layout
+        JLabel label1 = new JLabel("Welcome, " + displayName);
+        JButton logoutButton = new JButton("Logout");
+
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // label1 layout
         gbc.gridx = 0; gbc.gridy = 0;
         add(label1, gbc);
 
-        // backButton layout
         gbc.gridx = 0; gbc.gridy = 1;
         add(logoutButton, gbc);
 
-
-        // action listeners
         logoutButton.addActionListener(e -> {
             cardLayout.show(mainPanel, "login");
         });
-
     }
 }

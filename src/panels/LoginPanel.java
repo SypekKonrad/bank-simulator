@@ -1,10 +1,12 @@
 package panels;
-//import auth.UserAuth;
+
+import auth.UserAuth;
 import models.*;
 import utils.*;
 import exceptions.*;
 import javax.swing.*;
 import java.awt.*;
+import models.User;
 
 public class LoginPanel extends JPanel {
 
@@ -46,53 +48,56 @@ public class LoginPanel extends JPanel {
         gbc.gridy = 3;
         add(createAccountButton, gbc);
 
-//        UserAuth userAuth = new UserAuth();
 
-//        submitButton.addActionListener(e -> {
-//            String login = loginField.getText();
-//            String password = new String(passwordField.getPassword());
-//
-//            if (userAuth.authenticate(login, password)) {
-//                JOptionPane.showMessageDialog(frame, "ok");
-//            } else {
-//                JOptionPane.showMessageDialog(frame, "wrong login/passwd.");
-//            }
-//        });
         submitButton.addActionListener(e -> {
             try {
+                // Load data (users, accounts, etc.)
                 BankData data = DataManager.loadData();
-                String login = loginField.getText();
+//                boolean authenticated = false;
+
+                // Retrieve login and password from input fields
+                String login = loginField.getText().trim();
                 String password = new String(passwordField.getPassword());
 
-//                System.out.printf("Stored login=[%s], Stored password=[%s]%n", user.getLogin(), user.getPassword());
 
-                boolean authenticated = false;
+
+                // Basic input validation
+                if (login.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter both login and password.", "Input Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
 
                 if (data.getUsers().isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "No users registered yet");
                     return;
                 }
 
-                for (User user : data.getUsers()) {
-//                    System.out.printf("Stored login=[%s], Stored password=[%s]%n", user.getLogin().trim(), user.getPassword().trim());
-//                    System.out.printf("Input login=[%s], Input password=[%s]%n", login, password);
-                    if (user.getLogin().trim().equalsIgnoreCase(login) &&
-                            user.getPassword().equals(password)) {
-                        authenticated = true;
-                        break;
-                    }
-                }
 
-                if (authenticated) {
-                    JOptionPane.showMessageDialog(frame, "Login successful!");
-                    cardLayout.show(mainPanel, "account dashboard");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Invalid login credentials");
-                }
 
-            } catch (DataLoadException error) {
-                JOptionPane.showMessageDialog(frame, "Error loading data: " + error.getMessage());
-                error.printStackTrace();
+                // Authenticate user using UserAuth
+                UserAuth userAuth = new UserAuth(data);
+                User loggedInUser = userAuth.authenticate(login, password); // throws InvalidCredentialsException if fails
+
+                // Show success message
+                JOptionPane.showMessageDialog(frame, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                // Add the AccountPanel with the logged-in user, and switch the card layout to it
+                mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser), "account");
+                cardLayout.show(mainPanel, "account");
+
+            } catch (InvalidCredentialsException ex) {
+                // Wrong login or password
+                JOptionPane.showMessageDialog(frame, ex.getMessage(), "Login Failed", JOptionPane.ERROR_MESSAGE);
+
+            } catch (DataLoadException ex) {
+                // Error loading user data from storage
+                JOptionPane.showMessageDialog(frame, "Error loading user data: " + ex.getMessage(), "Data Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+
+            } catch (Exception ex) {
+                // Catch any other unexpected exceptions
+                JOptionPane.showMessageDialog(frame, "Unexpected error: " + ex.getMessage(), "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
         });
 
@@ -105,3 +110,19 @@ public class LoginPanel extends JPanel {
     }
 }
 
+
+//                    System.out.printf("Stored login=[%s], Stored password=[%s]%n", user.getLogin().trim(), user.getPassword().trim());
+
+
+//        UserAuth userAuth = new UserAuth();
+
+//        submitButton.addActionListener(e -> {
+//            String login = loginField.getText();
+//            String password = new String(passwordField.getPassword());
+//
+//            if (userAuth.authenticate(login, password)) {
+//                JOptionPane.showMessageDialog(frame, "ok");
+//            } else {
+//                JOptionPane.showMessageDialog(frame, "wrong login/passwd.");
+//            }
+//        });

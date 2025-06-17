@@ -30,6 +30,10 @@ public class PrivateUser extends User implements Serializable{
         return "private";
     }
 
+    @Override
+    public String getDisplayName() {
+        return firstName + " " + lastName;
+    }
 
     public String getFirstName() {
         return firstName;

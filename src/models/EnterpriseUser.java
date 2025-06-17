@@ -24,6 +24,11 @@ public class EnterpriseUser extends User implements Serializable{
         return "Enterprise";
     }
 
+    @Override
+    public String getDisplayName() {
+        return companyName;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
