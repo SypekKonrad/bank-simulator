@@ -75,7 +75,7 @@ public class LoginPanel extends JPanel {
 
                 JOptionPane.showMessageDialog(frame, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                mainPanel.add(new AccountPanel(cardLayout, mainPanel, loggedInUser), "account");
+                mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser), "account");
                 cardLayout.show(mainPanel, "account");
 
             } catch (InvalidCredentialsException ex) {

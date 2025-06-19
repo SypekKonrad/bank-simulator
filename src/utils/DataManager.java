@@ -53,12 +53,13 @@ public class DataManager {
     public static BankData loadData() throws DataLoadException {
         File file = new File(FILENAME);
         if (!file.exists()) {
-            System.out.println("1");
+//            System.out.println("1");
             return new BankData();
-        } else {
-            System.out.println("nie ma");
-
         }
+//        else {
+//            System.out.println("nie ma");
+//
+//        }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             return (BankData) ois.readObject();
