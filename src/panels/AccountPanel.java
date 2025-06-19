@@ -104,7 +104,7 @@ public class AccountPanel extends JPanel {
         });
 
         changePasswordButton.addActionListener(e -> {
-            mainPanel.add(new ChangePasswordPanel(frame, cardLayout, mainPanel), "change password");
+            mainPanel.add(new ChangePasswordPanel(frame, cardLayout, mainPanel, user), "change password");
             cardLayout.show(mainPanel, "change password");
         });
 

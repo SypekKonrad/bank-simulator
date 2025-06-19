@@ -7,6 +7,8 @@ import exceptions.*;
 import javax.swing.*;
 import java.awt.*;
 import models.User;
+import utils.Validators;
+
 
 public class ChangeEmailPanel extends JPanel {
 
@@ -63,8 +65,10 @@ public class ChangeEmailPanel extends JPanel {
                 return;
             }
 
-            if (!newEmail.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
-                JOptionPane.showMessageDialog(this, "Invalid email format.", "Input Error", JOptionPane.ERROR_MESSAGE);
+
+
+            if (!Validators.isValidEmail(newEmail)) {
+                JOptionPane.showMessageDialog(frame, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
