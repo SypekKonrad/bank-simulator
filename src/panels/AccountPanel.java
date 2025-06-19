@@ -6,7 +6,7 @@ import models.*;
 
 public class AccountPanel extends JPanel {
 
-    public AccountPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel, User user) {
+    public AccountPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel, User user, Account account) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 15, 10, 15);
@@ -32,7 +32,6 @@ public class AccountPanel extends JPanel {
         JButton changePasswordButton = createNavButton("Change Password");
         JButton changePhoneButton = createNavButton("Change Phone Number");
         JButton changeAddressButton = createNavButton("Update Address");
-        JButton changeNameButton = createNavButton("Update Personal Data");
         JButton deleteAccountButton = createNavButton("Delete Account");
 
         navbar.add(logoutButton);
@@ -67,30 +66,19 @@ public class AccountPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(displayNameLabel, gbc);
 
-        JLabel displayAccNumbLabel = new JLabel("Account Number:");
-        JLabel accNumberValueLabel = new JLabel("123456789");
 
-        JLabel displayBalanceLabel = new JLabel("Balance:");
-        JLabel balanceValueLabel = new JLabel("$1,234.56");
+        JLabel displayAccNumbLabel = new JLabel("Account Number: " + account.getAccountNumber());
 
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.LINE_END;
+        JLabel displayBalanceLabel = new JLabel("Balance: "+ account.getBalance());
+
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.LINE_START;
         gbc.gridy = 2;
         gbc.gridx = 0;
         add(displayAccNumbLabel, gbc);
 
-        gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.gridx = 1;
-        add(accNumberValueLabel, gbc);
-
-        gbc.anchor = GridBagConstraints.LINE_END;
         gbc.gridy = 3;
-        gbc.gridx = 0;
         add(displayBalanceLabel, gbc);
-
-        gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.gridx = 1;
-        add(balanceValueLabel, gbc);
 
         logoutButton.addActionListener(e -> {
             cardLayout.show(mainPanel, "login");
@@ -114,6 +102,11 @@ public class AccountPanel extends JPanel {
         changeAddressButton.addActionListener(e -> {
             mainPanel.add(new ChangeAddressPanel(frame, cardLayout, mainPanel, user), "change address");
             cardLayout.show(mainPanel, "change address");
+        });
+
+        deleteAccountButton.addActionListener(e -> {
+            mainPanel.add(new DeleteAccountPanel(frame, cardLayout, mainPanel, user), "delete account");
+            cardLayout.show(mainPanel, "delete account");
         });
 
 

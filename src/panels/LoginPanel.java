@@ -72,10 +72,24 @@ public class LoginPanel extends JPanel {
 
                 UserAuth userAuth = new UserAuth(data);
                 User loggedInUser = userAuth.authenticate(login, password);
+                Account account = null;
+
+                for (Account a : data.getAccounts()) {
+                    if (a.getOwner().getLogin().equals(loggedInUser.getLogin())) {
+                        account = a;
+                        break;
+                    }
+                }
+
+                if (account == null) {
+                    JOptionPane.showMessageDialog(frame, "Account not found for user!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
 
                 JOptionPane.showMessageDialog(frame, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser), "account");
+                mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser, account), "account");
                 cardLayout.show(mainPanel, "account");
 
             } catch (InvalidCredentialsException ex) {
