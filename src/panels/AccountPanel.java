@@ -109,7 +109,7 @@ public class AccountPanel extends JPanel {
         });
 
         changePhoneButton.addActionListener(e -> {
-            mainPanel.add(new ChangePhonePanel(frame, cardLayout, mainPanel), "change phone");
+            mainPanel.add(new ChangePhonePanel(frame, cardLayout, mainPanel, user), "change phone");
             cardLayout.show(mainPanel, "change phone");
         });
 
@@ -118,10 +118,6 @@ public class AccountPanel extends JPanel {
             cardLayout.show(mainPanel, "change address");
         });
 
-        changeNameButton.addActionListener(e -> {
-            mainPanel.add(new ChangeNamePanel(frame, cardLayout, mainPanel), "change name");
-            cardLayout.show(mainPanel, "change name");
-        });
 
     }
 
