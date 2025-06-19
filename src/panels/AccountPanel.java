@@ -45,8 +45,6 @@ public class AccountPanel extends JPanel {
         navbar.add(Box.createRigidArea(new Dimension(10, 0)));
         navbar.add(changeAddressButton);
         navbar.add(Box.createRigidArea(new Dimension(10, 0)));
-        navbar.add(changeNameButton);
-        navbar.add(Box.createRigidArea(new Dimension(10, 0)));
         navbar.add(deleteAccountButton);
 
         gbc.gridx = 0;
@@ -114,7 +112,7 @@ public class AccountPanel extends JPanel {
         });
 
         changeAddressButton.addActionListener(e -> {
-            mainPanel.add(new ChangeAddressPanel(frame, cardLayout, mainPanel), "change address");
+            mainPanel.add(new ChangeAddressPanel(frame, cardLayout, mainPanel, user), "change address");
             cardLayout.show(mainPanel, "change address");
         });
 

@@ -26,13 +26,9 @@ public class Main {
         JFrame frame = new JFrame("bank");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         // rozmiar jframe
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(false);
-
-
-        //todo jak zrobie user register to user auth musi brac dane z pliku
 
         CardLayout cardLayout = new CardLayout();
         JPanel mainPanel = new JPanel(cardLayout);
@@ -41,8 +37,6 @@ public class Main {
         mainPanel.add(new RegisterPanel(frame, cardLayout, mainPanel), "register");
         mainPanel.add(new EnterpriseRegisterPanel(frame, cardLayout, mainPanel), "enterprise register");
         mainPanel.add(new PrivateRegisterPanel(frame, cardLayout, mainPanel), "private register");
-//        mainPanel.add(new AccountPanel(frame, cardLayout, mainPanel, loggedInUser), "account dashboard");
-
 
         // to tu musi zostac
         frame.add(mainPanel);

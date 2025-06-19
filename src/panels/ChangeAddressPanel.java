@@ -8,20 +8,20 @@ import javax.swing.*;
 import java.awt.*;
 import models.User;
 
-public class ChangePhonePanel extends JPanel {
+public class ChangeAddressPanel extends JPanel {
 
-    public ChangePhonePanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel, User user) {
+    public ChangeAddressPanel(JFrame frame, CardLayout cardLayout, JPanel mainPanel, User user) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel changePhoneLabel = new JLabel("Change phone number", SwingConstants.CENTER);
-        changePhoneLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        JLabel changeAdressLabel = new JLabel("Change adress", SwingConstants.CENTER);
+        changeAdressLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
-        JLabel currentPhoneLabel = new JLabel("Current phone number: " + user.getPhone());
+        JLabel currentAdressLabel = new JLabel("Current adress: " + user.getAddress());
 
-        JLabel newPhoneLabel = new JLabel("New phone number:");
-        JTextField newPhoneField = new JTextField(40);
+        JLabel newAdressLabel = new JLabel("New adress:");
+        JTextField newAdressField = new JTextField(40);
 
         JButton submitButton = new JButton("Submit");
         JButton backButton = new JButton("Back");
@@ -29,17 +29,17 @@ public class ChangePhonePanel extends JPanel {
         int row = 0;
 
         gbc.gridx = 0; gbc.gridy = row++; gbc.gridwidth = 2;
-        add(changePhoneLabel, gbc);
+        add(changeAdressLabel, gbc);
         gbc.gridwidth = 1;
 
         gbc.gridx = 0; gbc.gridy = row++; gbc.gridwidth = 2;
-        add(currentPhoneLabel, gbc);
+        add(currentAdressLabel, gbc);
         gbc.gridwidth = 1;
 
         gbc.gridx = 0; gbc.gridy = row;
-        add(newPhoneLabel, gbc);
+        add(newAdressLabel, gbc);
         gbc.gridx = 1;
-        add(newPhoneField, gbc); row++;
+        add(newAdressField, gbc); row++;
 
         gbc.gridx = 0; gbc.gridy = row;
         add(backButton, gbc);
@@ -53,15 +53,10 @@ public class ChangePhonePanel extends JPanel {
 
         submitButton.addActionListener(e -> {
 
-            String newPhone = newPhoneField.getText();
+            String newAdress = newAdressField.getText();
 
-            if (!Validators.isNotEmpty(newPhone)) {
+            if (!Validators.isNotEmpty(newAdress)) {
                 JOptionPane.showMessageDialog(frame, "New Phone cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (!Validators.isValidPhone(newPhone)) {
-                JOptionPane.showMessageDialog(frame, "Invalid phone format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -70,25 +65,28 @@ public class ChangePhonePanel extends JPanel {
 
                 for (User u : bankData.getUsers()) {
                     if (u.getLogin().equals(user.getLogin())) {
-                        u.setPhone(newPhone);
+                        u.setAddress(newAdress);
                         break;
                     }
                 }
 
                 DataManager.saveData(bankData);
 
-                JOptionPane.showMessageDialog(this, "Phone number updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Adress updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                user.setPhone(newPhone);
+                user.setAddress(newAdress);
 
                 cardLayout.show(mainPanel, "account");
 
             }  catch (Exception ex) {
-                PhoneChangeException phoneEx = new PhoneChangeException("Failed to change phone number", ex);
-                ExceptionUtils.handle(phoneEx, this, "Phone number update failed");
+                AdressChangeException adressEx = new AdressChangeException("Failed to change adress", ex);
+                ExceptionUtils.handle(adressEx, this, "Adress update failed");
             }
 
         });
+
+
+
 
 
 
