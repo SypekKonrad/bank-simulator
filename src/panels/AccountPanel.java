@@ -3,6 +3,9 @@ package panels;
 import javax.swing.*;
 import java.awt.*;
 import models.*;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Clipboard;
 
 public class AccountPanel extends JPanel {
 
@@ -22,6 +25,7 @@ public class AccountPanel extends JPanel {
             displayName = user.getLogin();
         }
 
+        // Navbar
         JPanel navbar = new JPanel();
         navbar.setLayout(new BoxLayout(navbar, BoxLayout.X_AXIS));
         navbar.setBackground(new Color(30, 144, 255));
@@ -33,6 +37,10 @@ public class AccountPanel extends JPanel {
         JButton changePhoneButton = createNavButton("Change Phone Number");
         JButton changeAddressButton = createNavButton("Update Address");
         JButton deleteAccountButton = createNavButton("Delete Account");
+        JButton copyButton = new JButton("Copy");
+        JButton requestLoanButton = new JButton("Request loan");
+        JButton repayLoanButton = new JButton("Repay loan");
+        JButton moneyTransferButton = new JButton("Money transfer");
 
         navbar.add(logoutButton);
         navbar.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -66,23 +74,56 @@ public class AccountPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(displayNameLabel, gbc);
 
-
         JLabel displayAccNumbLabel = new JLabel("Account Number: " + account.getAccountNumber());
+        JLabel displayBalanceLabel = new JLabel("Balance: " + account.getBalance());
 
-        JLabel displayBalanceLabel = new JLabel("Balance: "+ account.getBalance());
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setOpaque(false);
 
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.LINE_START;
+        JPanel accNumberPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        accNumberPanel.setOpaque(false);
+        accNumberPanel.add(displayAccNumbLabel);
+        accNumberPanel.add(copyButton);
+
+        JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        balancePanel.setOpaque(false);
+        balancePanel.add(displayBalanceLabel);
+
+        leftPanel.add(accNumberPanel);
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        leftPanel.add(balancePanel);
+
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        rightPanel.setOpaque(false);
+        rightPanel.add(requestLoanButton);
+        rightPanel.add(repayLoanButton);
+        rightPanel.add(moneyTransferButton);
+
+        JPanel containerPanel = new JPanel(new GridBagLayout());
+        containerPanel.setOpaque(false);
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 1.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.LINE_START;
+        containerPanel.add(leftPanel, c);
+
+        c.gridx = 1;
+        c.weightx = 0;
+        c.anchor = GridBagConstraints.LINE_END;
+        containerPanel.add(rightPanel, c);
+
         gbc.gridy = 2;
         gbc.gridx = 0;
-        add(displayAccNumbLabel, gbc);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(containerPanel, gbc);
 
-        gbc.gridy = 3;
-        add(displayBalanceLabel, gbc);
-
-        logoutButton.addActionListener(e -> {
-            cardLayout.show(mainPanel, "login");
-        });
+        logoutButton.addActionListener(e -> cardLayout.show(mainPanel, "login"));
 
         changeEmailButton.addActionListener(e -> {
             mainPanel.add(new ChangeEmailPanel(frame, cardLayout, mainPanel, user), "change email");
@@ -107,6 +148,29 @@ public class AccountPanel extends JPanel {
         deleteAccountButton.addActionListener(e -> {
             mainPanel.add(new DeleteAccountPanel(frame, cardLayout, mainPanel, user), "delete account");
             cardLayout.show(mainPanel, "delete account");
+        });
+
+        copyButton.addActionListener(e -> {
+            String accountNumber = account.getAccountNumber();
+            StringSelection selection = new StringSelection(accountNumber);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(selection, selection);
+            JOptionPane.showMessageDialog(null, "Copied");
+        });
+
+        requestLoanButton.addActionListener(e -> {
+            mainPanel.add(new RequestLoanPanel(frame, cardLayout, mainPanel, user), "request loan");
+            cardLayout.show(mainPanel, "request loan");
+        });
+
+        repayLoanButton.addActionListener(e -> {
+            mainPanel.add(new DeleteAccountPanel(frame, cardLayout, mainPanel, user), "repay loan");
+            cardLayout.show(mainPanel, "repay loan");
+        });
+
+        moneyTransferButton.addActionListener(e -> {
+            mainPanel.add(new DeleteAccountPanel(frame, cardLayout, mainPanel, user), "money transfer");
+            cardLayout.show(mainPanel, "money transfer");
         });
 
 

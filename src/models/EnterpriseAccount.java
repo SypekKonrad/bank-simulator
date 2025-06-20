@@ -1,7 +1,9 @@
 package models;
+import interfaces.Loanable;
+
 import java.io.Serializable;
 
-public class EnterpriseAccount extends Account implements Serializable{
+public class EnterpriseAccount extends Account implements Serializable {
 
     public EnterpriseAccount(EnterpriseUser owner) {
         super(owner);
