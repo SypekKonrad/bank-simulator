@@ -164,7 +164,7 @@ public class AccountPanel extends JPanel {
         });
 
         repayLoanButton.addActionListener(e -> {
-            mainPanel.add(new DeleteAccountPanel(frame, cardLayout, mainPanel, user), "repay loan");
+            mainPanel.add(new RepayLoanPanel(frame, cardLayout, mainPanel, user), "repay loan");
             cardLayout.show(mainPanel, "repay loan");
         });
 
