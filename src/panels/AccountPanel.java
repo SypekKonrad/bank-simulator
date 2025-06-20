@@ -169,7 +169,7 @@ public class AccountPanel extends JPanel {
         });
 
         moneyTransferButton.addActionListener(e -> {
-            mainPanel.add(new DeleteAccountPanel(frame, cardLayout, mainPanel, user), "money transfer");
+            mainPanel.add(new MoneyTransferPanel(frame, cardLayout, mainPanel, user), "money transfer");
             cardLayout.show(mainPanel, "money transfer");
         });
 

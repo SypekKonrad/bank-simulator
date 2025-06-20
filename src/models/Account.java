@@ -1,11 +1,11 @@
 package models;
 
-import interfaces.Loanable;
+import interfaces.*;
 import utils.AccountNumberGenerator;
 
 import java.io.Serializable;
 
-public abstract class Account  implements Serializable, Loanable {
+public abstract class Account  implements Serializable, Loanable, Transferable{
     protected String accountNumber;
     protected double balance;
     protected User owner;
@@ -56,5 +56,16 @@ public abstract class Account  implements Serializable, Loanable {
     @Override
     public double getOutstandingLoan() {
         return outstandingLoan;
+    }
+
+    @Override
+    public boolean transferTo(Account recipient, double amount) {
+        if (recipient == null || amount <= 0 || this.balance < amount) {
+            return false;
+        }
+
+        this.balance -= amount;
+        recipient.setBalance(recipient.getBalance() + amount);
+        return true;
     }
 }
