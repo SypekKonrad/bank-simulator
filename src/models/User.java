@@ -11,7 +11,7 @@ public abstract class User implements Serializable {
     protected String phone;
     protected String address;
 
-    public User(String id, String login, String password, String email, String phone, String address) {
+    public User(String login, String password, String email, String phone, String address) {
         this.id = UUID.randomUUID().toString();
         this.login = login;
         this.password = password;

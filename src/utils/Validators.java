@@ -33,4 +33,8 @@ public class Validators {
         }
         return true;
     }
+
+    public static boolean userExists(String login1, String login2) {
+        return login1 != null && login1.equals(login2);
+    }
 }

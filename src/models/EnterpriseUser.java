@@ -14,7 +14,7 @@ public class EnterpriseUser extends User implements Serializable{
             String CompanyName,
             String NIP
     ) {
-        super(null, login, password, email, phone, address);
+        super(login, password, email, phone, address);
         this.companyName = CompanyName;
         this.NIP = NIP;
     }

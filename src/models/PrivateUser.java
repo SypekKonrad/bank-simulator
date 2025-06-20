@@ -18,7 +18,7 @@ public class PrivateUser extends User implements Serializable{
             String pesel,
             String dateOfBirth
     ) {
-        super(null, login, password, email, phone, address);
+        super(login, password, email, phone, address);
         this.firstName = firstName;
         this.lastName = lastName;
         this.pesel = pesel;

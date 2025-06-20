@@ -206,6 +206,13 @@ public class PrivateRegisterPanel extends JPanel {
             try {
                 BankData data = DataManager.loadData();
 
+                for (User existingUser : data.getUsers()) {
+                    if (Validators.userExists(existingUser.getLogin(), login)) {
+                        JOptionPane.showMessageDialog(frame, "A user with this login already exists.", "Registration Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+
                 data.addUser(user);
                 data.addAccount(account);
 
