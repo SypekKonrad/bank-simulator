@@ -36,8 +36,5 @@ nbdist/
 # Logs and temp
 *.log
 
-# temp ignore
-readme.md
-readme2.md
 
 user_account.dat
